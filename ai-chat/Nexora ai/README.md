@@ -1,20 +1,20 @@
-# AI Agent Chat Application Documentation
+# Nexora AI Documentation
 
 ## Overview
 
-This project is an AI-powered chat application, similar to ChatGPT, built using React and Vite for fast development and optimized performance. It leverages local Ollama 3 CodeLlama models for conversational AI, ensuring privacy and speed by running all LLM inference locally. The application is engineered with modern React techniques to maximize efficiency and responsiveness.
+Nexora AI is a private, local AI chat application built with React and Vite. It connects to Ollama for local LLM inference, keeping conversations on your device while providing a responsive chat experience.
 
 ## Features
 
-- **Chatbot Experience:** Engage with an AI agent in natural language.
-- **Local LLM Inference:** Uses Ollama 3 CodeLlama models locally—no cloud API calls required.
+- **Nexora AI Chat:** Engage with local AI models in natural language.
+- **Local LLM Inference:** Uses Ollama models locally—no cloud API calls required.
 - **React Modern Optimization:** Built using best practices for component performance and state management.
 - **Customizable and Extensible:** Easily modifiable for other local models or UI changes.
 
 ## Folder Structure
 
 ```
-ai-chat/ai-chat/
+Nexora ai/
 ├── .gitignore
 ├── README.md
 ├── eslint.config.js
@@ -58,7 +58,7 @@ ai-chat/ai-chat/
 1. Clone the repository:
    ```bash
    git clone https://github.com/surajydsde/ai-agent
-   cd ai-agent/ai-chat/ai-chat
+   cd "ai-agent/Nexora ai"
    ```
 
 2. Install dependencies:
@@ -102,4 +102,4 @@ For issues or feature requests, open a GitHub issue in this repository.
 
 ---
 
-_This documentation describes the AI agent chat app using local Ollama CodeLlama models, optimized with React and Vite._
+_Nexora AI uses React, Vite, and local Ollama models for private AI conversations._

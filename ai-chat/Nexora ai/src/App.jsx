@@ -201,7 +201,7 @@
 //     <div className="flex flex-col h-screen bg-[#212121] text-white">
 //       {/* Header */}
 //       <header className="flex items-center justify-between p-3 bg-[#2f2f2f] border-b border-gray-700">
-//         <h1 className="text-lg font-semibold">ChatGPT Clone (Local AI)</h1>
+//         <h1 className="text-lg font-semibold">Nexora AI</h1>
 //         <div className="flex items-center gap-2">
 //           <select
 //             className="bg-[#3a3a3a] border border-gray-600 rounded-md px-2 py-1 text-sm text-gray-200"
@@ -413,7 +413,7 @@ export default function App() {
     <div className="flex flex-col h-screen bg-[#2f2f2f] text-white">
       {/* Header */}
       <header className="flex items-center justify-between p-3 bg-[#2f2f2f] border-b border-gray-700">
-        <h1 className="text-lg font-semibold">ChatGPT Clone (Local AI)</h1>
+        <h1 className="text-lg font-semibold">Nexora AI</h1>
         <div className="flex items-center gap-2">
           <select
             className="bg-[#3a3a3a] border border-gray-600 rounded-md px-2 py-1 text-sm text-gray-200"

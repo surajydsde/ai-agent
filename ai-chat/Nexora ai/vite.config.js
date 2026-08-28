@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/favicon.ico', 'icons/icon-192x192.png', 'icons/icon-512x512.png'],
       manifest: {
-        name: 'AI Chat',
-        short_name: 'AI Chat',
+        name: 'Nexora AI',
+        short_name: 'Nexora AI',
         description: 'Private, local AI chat with Llama and DeepSeek.',
         theme_color: '#007AFF',
         background_color: '#212121',
