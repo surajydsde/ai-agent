@@ -1,6 +1,6 @@
 {
-  "name": "AI Chat",
-  "short_name": "AI Chat",
+  "name": "Nexora AI",
+  "short_name": "Nexora AI",
   "description": "Chat with local AI models like Llama and DeepSeek, fast and private.",
   "start_url": "/",
   "display": "standalone",
