@@ -14,7 +14,7 @@ Nexora AI is a private, local AI chat application built with React and Vite. It 
 ## Folder Structure
 
 ```
-Nexora ai/
+nexora-ai/
 ├── .gitignore
 ├── README.md
 ├── eslint.config.js
@@ -58,7 +58,7 @@ Nexora ai/
 1. Clone the repository:
    ```bash
    git clone https://github.com/surajydsde/ai-agent
-   cd "ai-agent/Nexora ai"
+   cd ai-agent/nexora-ai
    ```
 
 2. Install dependencies:
