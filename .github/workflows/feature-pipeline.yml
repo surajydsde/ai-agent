@@ -69,7 +69,7 @@ jobs:
             printf '%s\n' '# Changelog' '' 'All notable changes to this project will be documented in this file.' > CHANGELOG.md
           }
           grep -qi 'dark' README.md
-          grep -q 'dark' CHANGELOG.md
+          grep -qi 'dark' CHANGELOG.md
 
   release:
     name: Release build gate
