@@ -7,6 +7,7 @@ Nexora AI is a private, local AI chat application built with React and Vite. It 
 ## Features
 
 - **Nexora AI Chat:** Engage with local AI models in natural language.
+- **Theme preferences:** Toggle between light and dark mode, with the choice saved locally.
 - **Local LLM Inference:** Uses Ollama models locally—no cloud API calls required.
 - **React Modern Optimization:** Built using best practices for component performance and state management.
 - **Customizable and Extensible:** Easily modifiable for other local models or UI changes.
@@ -95,6 +96,10 @@ then create the release commit and `v*` tag.
 Feature work follows the ordered agent workflow documented in `AGENTS.md`. The
 manual GitHub Actions pipeline is available at **Actions > Feature pipeline** and
 gates checks, build, and guarded pushes.
+
+The header theme toggle supports light and dark modes. When no preference has been
+saved, Nexora AI follows the operating system color-scheme preference; a selected
+theme is stored locally in the browser.
 
 ## Customization
 
