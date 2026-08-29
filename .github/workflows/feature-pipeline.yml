@@ -68,7 +68,7 @@ jobs:
           test -f CHANGELOG.md || {
             printf '%s\n' '# Changelog' '' 'All notable changes to this project will be documented in this file.' > CHANGELOG.md
           }
-          grep -q 'dark' README.md
+          grep -qi 'dark' README.md
           grep -q 'dark' CHANGELOG.md
 
   release:
