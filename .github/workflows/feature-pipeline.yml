@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+defaults:
+  run:
+    working-directory: nexora-ai
+
 concurrency:
   group: feature-pipeline-${{ github.ref }}
   cancel-in-progress: false
