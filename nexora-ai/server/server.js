@@ -1,37 +1,37 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import fetch from "node-fetch";
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import fetch from 'node-fetch';
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 // SSE endpoint for streaming chat
-app.post("/api/chat", async (req, res) => {
+app.post('/api/chat', async (req, res) => {
   const { messages, model } = req.body;
-  const prompt = messages.map(m => `${m.role}: ${m.content}`).join("\n");
+  const prompt = messages.map((m) => `${m.role}: ${m.content}`).join('\n');
 
   try {
-    const ollamaStream = await fetch("http://localhost:11434/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const ollamaStream = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: model || "llama3",
+        model: model || 'llama3',
         prompt,
-        stream: true
+        stream: true,
       }),
     });
 
     // Set headers for SSE
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
     const decoder = new TextDecoder();
     for await (const chunk of ollamaStream.body) {
       const text = decoder.decode(chunk);
-      const lines = text.split("\n").filter(Boolean);
+      const lines = text.split('\n').filter(Boolean);
 
       for (const line of lines) {
         try {
@@ -45,13 +45,13 @@ app.post("/api/chat", async (req, res) => {
             return;
           }
         } catch (e) {
-          console.error("Streaming parse error:", e);
+          console.error('Streaming parse error:', e);
         }
       }
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Streaming failed" });
+    res.status(500).json({ error: 'Streaming failed' });
   }
 });
 

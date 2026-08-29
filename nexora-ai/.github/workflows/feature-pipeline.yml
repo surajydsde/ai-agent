@@ -1,0 +1,117 @@
+name: Feature pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      push:
+        description: Push the validated commit to the checked-out branch
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: feature-pipeline-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    name: Tests and validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Run checks (up to three attempts)
+        shell: bash
+        run: |
+          set -uo pipefail
+          for attempt in 1 2 3; do
+            echo "Attempt ${attempt}/3"
+            commit_check=true
+            if [ "$(git rev-list --count HEAD)" -gt 1 ]; then
+              commit_check="npm run commitlint"
+            fi
+            if npm run lint && npm test --if-present && eval "$commit_check"; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Checks failed after three attempts." >&2
+              exit 1
+            fi
+            sleep $((attempt * 5))
+          done
+
+  documentation:
+    name: Documentation and changelog
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify documentation files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f CHANGELOG.md || {
+            printf '%s\n' '# Changelog' '' 'All notable changes to this project will be documented in this file.' > CHANGELOG.md
+          }
+          grep -q 'dark' README.md
+          grep -q 'dark' CHANGELOG.md
+
+  release:
+    name: Release build gate
+    needs: [tests, documentation]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build (up to three attempts)
+        shell: bash
+        run: |
+          set -uo pipefail
+          for attempt in 1 2 3; do
+            echo "Attempt ${attempt}/3"
+            if npm run build; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Build failed after three attempts." >&2
+              exit 1
+            fi
+            sleep $((attempt * 5))
+          done
+
+  push:
+    name: Guarded push
+    needs: release
+    if: ${{ inputs.push == true && github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify clean, secret-free diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          if git grep -n -I -E 'BEGIN (RSA|OPENSSH|EC|PGP) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}' -- .; then
+            echo "Potential credential detected; refusing to push." >&2
+            exit 1
+          fi
+      - name: Push checked-out branch
+        run: git push origin HEAD:${GITHUB_REF_NAME}

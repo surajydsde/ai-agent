@@ -56,27 +56,45 @@ nexora-ai/
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/surajydsde/ai-agent
    cd ai-agent/nexora-ai
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Make sure Ollama is running with the CodeLlama model:
+
    ```bash
    ollama serve
    ```
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
 
 5. Open your browser at `http://localhost:5173` (default Vite port).
+
+### Commits and releases
+
+Commits use [Conventional Commits](https://www.conventionalcommits.org/), enforced by
+the Husky `commit-msg` hook. Use messages such as `feat(chat): add model selector` or
+`fix(server): handle unavailable Ollama`.
+
+Run `npm run release:dry` to preview the next semantic version and changelog. Run
+`npm run release` to update `package.json`, `package-lock.json`, and `CHANGELOG.md`,
+then create the release commit and `v*` tag.
+
+Feature work follows the ordered agent workflow documented in `AGENTS.md`. The
+manual GitHub Actions pipeline is available at **Actions > Feature pipeline** and
+gates checks, build, and guarded pushes.
 
 ## Customization
 

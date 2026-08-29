@@ -1,0 +1,5 @@
+{
+  "preset": "conventionalcommits",
+  "releaseCommitMessageFormat": "chore(release): {{currentTag}}",
+  "tagPrefix": "v"
+}

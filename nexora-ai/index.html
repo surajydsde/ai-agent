@@ -7,14 +7,34 @@
 
     <!-- ✅ SEO -->
     <title>Nexora AI – Smart Local AI Assistant</title>
-    <meta name="description" content="Chat locally with your own AI using Llama, CodeLlama, or DeepSeek. Fast, private, and completely offline." />
-    <meta name="keywords" content="AI Chat, Llama 3, DeepSeek, Local AI, React Chatbot, Offline AI" />
+    <meta
+      name="description"
+      content="Chat locally with your own AI using Llama, CodeLlama, or DeepSeek. Fast, private, and completely offline."
+    />
+    <meta
+      name="keywords"
+      content="AI Chat, Llama 3, DeepSeek, Local AI, React Chatbot, Offline AI"
+    />
     <meta name="author" content="Your Name" />
     <meta name="theme-color" content="#007AFF" />
+    <script>
+      (() => {
+        const storedTheme = localStorage.getItem('nexora-theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+        const theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : systemTheme;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
 
     <!-- ✅ Open Graph (for social sharing) -->
     <meta property="og:title" content="Nexora AI – Smart Local AI Assistant" />
-    <meta property="og:description" content="Run private, fast AI chat locally on your device with Llama or DeepSeek." />
+    <meta
+      property="og:description"
+      content="Run private, fast AI chat locally on your device with Llama or DeepSeek."
+    />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourdomain.com/" />
@@ -22,13 +42,16 @@
     <!-- ✅ Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Nexora AI – Smart Local AI Assistant" />
-    <meta name="twitter:description" content="Run local AI chat with modern models like Llama and DeepSeek." />
+    <meta
+      name="twitter:description"
+      content="Run local AI chat with modern models like Llama and DeepSeek."
+    />
     <meta name="twitter:image" content="/og-image.png" />
 
     <!-- ✅ PWA -->
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-     <script type="application/ld+json">
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -45,7 +68,7 @@
     </script>
   </head>
 
-  <body class="bg-[#2f2f2f] text-white">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
